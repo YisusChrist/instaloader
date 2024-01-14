@@ -38,9 +38,25 @@ classifiers = [
 ]
 
 [tool.poetry.dependencies]
-python = ">=3.8"
+python = ">=3.8,<3.13"
 requests = ">=2.4"
 rich = "^13.7.0"
+
+[tool.poetry.group.dev.dependencies]
+pylint = "*"
+mypy = "*"
+sphinx = "~=2.3"
+pyinstaller = "*"
+pefile = "*"
+pywin32-ctypes = "*"
+psutil = "*"
+typing-extensions = "*"
+types-requests = "*"
+#typed-ast = "*"  # Does not support PEP 517 yet
+jinja2 = "~=3.0.1"
+wrapt = "*"  # Needed for Python<3.11
+tomli = "*"  # Needed for Python<3.11
+dill = "*"  # Needed for Python<3.11
 
 [build-system]
 requires = ["poetry-core"]
