@@ -58,6 +58,9 @@ wrapt = "*"  # Needed for Python<3.11
 tomli = "*"  # Needed for Python<3.11
 dill = "*"  # Needed for Python<3.11
 
+[tool.poetry.scripts]
+instaloader = "instaloader.__main__:main"
+
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
