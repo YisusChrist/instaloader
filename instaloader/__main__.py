@@ -8,6 +8,8 @@ import sys
 from argparse import ArgumentParser, ArgumentTypeError, SUPPRESS
 from typing import List, Optional
 
+from rich import print
+
 from . import (AbortDownloadException, BadCredentialsException, Instaloader, InstaloaderException,
                InvalidArgumentException, Post, Profile, ProfileNotExistsException, StoryItem,
                TwoFactorAuthRequiredException, __version__, load_structure_from_file)
@@ -118,7 +120,7 @@ def _main(instaloader: Instaloader, targetlist: List[str],
                             pass
             else:
                 instaloader.interactive_login(username)
-        instaloader.context.log("Logged in as %s." % username)
+        instaloader.context.log("Logged in as '%s'." % username)
     # since 4.2.9 login is required for geotags
     if instaloader.download_geotags and not instaloader.context.is_logged_in:
         instaloader.context.error("Warning: Use --login to download geotags of posts.")

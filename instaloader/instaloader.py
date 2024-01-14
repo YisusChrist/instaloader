@@ -17,6 +17,7 @@ from urllib.parse import urlparse
 
 import requests
 import urllib3  # type: ignore
+from rich import print
 
 from .exceptions import *
 from .instaloadercontext import InstaloaderContext, RateController
@@ -634,7 +635,7 @@ class Instaloader:
                 filename = get_legacy_session_filename(username)
         with open(filename, 'rb') as sessionfile:
             self.context.load_session_from_file(username, sessionfile)
-            self.context.log("Loaded session from %s." % filename)
+            self.context.log("Loaded session from '%s'." % filename)
 
     def test_login(self) -> Optional[str]:
         """Returns the Instagram username to which given :class:`requests.Session` object belongs, or None."""
@@ -849,10 +850,10 @@ class Instaloader:
         for i, user_story in enumerate(self.get_stories(userids), start=1):
             name = user_story.owner_username
             if profile_count is not None:
-                msg = "[{0:{w}d}/{1:{w}d}] Retrieving stories from profile {2}.".format(i, profile_count, name,
+                msg = "[{0:{w}d}/{1:{w}d}] Retrieving stories from profile '{2}'.".format(i, profile_count, name,
                                                                                         w=len(str(profile_count)))
             else:
-                msg = "[{:3d}] Retrieving stories from profile {}.".format(i, name)
+                msg = "[{:3d}] Retrieving stories from profile '{}'.".format(i, name)
             self.context.log(msg)
             totalcount = user_story.itemcount
             count = 1
@@ -967,7 +968,7 @@ class Instaloader:
                                 else (Path(_PostPathFormatter.sanitize_path(name, self.sanitize_paths)) /
                                       _PostPathFormatter.sanitize_path(user_highlight.title,
                                                                        self.sanitize_paths)))
-            self.context.log("Retrieving highlights \"{}\" from profile {}".format(user_highlight.title, name))
+            self.context.log("Retrieving highlights \"{}\" from profile '{}'".format(user_highlight.title, name))
             self.download_highlight_cover(user_highlight, highlight_target)
             totalcount = user_highlight.itemcount
             count = 1
@@ -1439,14 +1440,14 @@ class Instaloader:
         error_handler = _error_raiser if raise_errors else self.context.error_catcher
 
         for i, profile in enumerate(profiles, start=1):
-            self.context.log("[{0:{w}d}/{1:{w}d}] Downloading profile {2}".format(i, len(profiles), profile.username,
+            self.context.log("[{0:{w}d}/{1:{w}d}] Downloading profile '{2}'".format(i, len(profiles), profile.username,
                                                                                   w=len(str(len(profiles)))))
             with error_handler(profile.username):  # type: ignore # (ignore type for Python 3.5 support)
                 profile_name = profile.username
 
                 # Download profile picture
                 if profile_pic:
-                    with self.context.error_catcher('Download profile picture of {}'.format(profile_name)):
+                    with self.context.error_catcher("Download profile picture of '{}'".format(profile_name)):
                         self.download_profilepic_if_new(profile, latest_stamps)
 
                 # Save metadata as JSON if desired.
@@ -1468,24 +1469,24 @@ class Instaloader:
 
                 # Download tagged, if requested
                 if tagged:
-                    with self.context.error_catcher('Download tagged of {}'.format(profile_name)):
+                    with self.context.error_catcher("Download tagged of '{}'".format(profile_name)):
                         self.download_tagged(profile, fast_update=fast_update, post_filter=post_filter,
                                              latest_stamps=latest_stamps)
 
                 # Download IGTV, if requested
                 if igtv:
-                    with self.context.error_catcher('Download IGTV of {}'.format(profile_name)):
+                    with self.context.error_catcher("Download IGTV of '{}'".format(profile_name)):
                         self.download_igtv(profile, fast_update=fast_update, post_filter=post_filter,
                                            latest_stamps=latest_stamps)
 
                 # Download highlights, if requested
                 if highlights:
-                    with self.context.error_catcher('Download highlights of {}'.format(profile_name)):
+                    with self.context.error_catcher("Download highlights of '{}'".format(profile_name)):
                         self.download_highlights(profile, fast_update=fast_update, storyitem_filter=storyitem_filter)
 
                 # Iterate over pictures and download them
                 if posts:
-                    self.context.log("Retrieving posts from profile {}.".format(profile_name))
+                    self.context.log("Retrieving posts from profile '{}'.".format(profile_name))
                     posts_takewhile: Optional[Callable[[Post], bool]] = None
                     if latest_stamps is not None:
                         # pylint:disable=cell-var-from-loop
@@ -1559,11 +1560,11 @@ class Instaloader:
         # Download stories, if requested
         if download_stories or download_stories_only:
             if profile.has_viewable_story:
-                with self.context.error_catcher("Download stories of {}".format(profile_name)):
+                with self.context.error_catcher("Download stories of '{}'".format(profile_name)):
                     self.download_stories(userids=[profile.userid], filename_target=profile_name,
                                           fast_update=fast_update, storyitem_filter=storyitem_filter)
             else:
-                self.context.log("{} does not have any stories.".format(profile_name))
+                self.context.log("'{}' does not have any stories.".format(profile_name))
         if download_stories_only:
             return
 
@@ -1575,7 +1576,7 @@ class Instaloader:
             return
 
         # Iterate over pictures and download them
-        self.context.log("Retrieving posts from profile {}.".format(profile_name))
+        self.context.log("Retrieving posts from profile '{}'.".format(profile_name))
         self.posts_download_loop(profile.get_posts(), profile_name, fast_update, post_filter,
                                  total_count=profile.mediacount, owner_profile=profile)
 

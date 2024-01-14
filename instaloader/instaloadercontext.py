@@ -16,6 +16,7 @@ from typing import Any, Callable, Dict, Iterator, List, Optional, Union
 
 import requests
 import requests.utils
+from rich import print
 
 from .exceptions import *
 
