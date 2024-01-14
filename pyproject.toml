@@ -1,0 +1,46 @@
+[tool.poetry]
+name = "instaloader"
+version = "4.10.3"
+description = "Download pictures (or videos) along with their captions and other metadata from Instagram."
+license = "MIT"
+authors = ["Alexander Graf <mail@agraf.me>", "André Koch-Kramer <koch-kramer@web.de>"]
+readme = "README.rst"
+repository = "https://instaloader.github.io/"
+keywords = [
+    "instagram",
+    "instagram-scraper",
+    "instagram-client",
+    "instagram-feed",
+    "downloader",
+    "videos",
+    "photos",
+    "pictures",
+    "instagram-user-photos",
+    "instagram-photos",
+    "instagram-metadata",
+    "instagram-downloader",
+    "instagram-stories"    
+]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Environment :: Console",
+    "Intended Audience :: End Users/Desktop",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3 :: Only",
+    "Topic :: Internet",
+    "Topic :: Multimedia :: Graphics",
+]
+
+[tool.poetry.dependencies]
+python = ">=3.8"
+requests = ">=2.4"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
