@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "instaloader"
-version = "4.10.3"
+version = "4.13"
 description = "Download pictures (or videos) along with their captions and other metadata from Instagram."
 license = "MIT"
 authors = ["Alexander Graf <mail@agraf.me>", "André Koch-Kramer <koch-kramer@web.de>"]
@@ -19,7 +19,7 @@ keywords = [
     "instagram-photos",
     "instagram-metadata",
     "instagram-downloader",
-    "instagram-stories"    
+    "instagram-stories"
 ]
 classifiers = [
     "Development Status :: 5 - Production/Stable",
@@ -32,6 +32,7 @@ classifiers = [
     "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
     "Programming Language :: Python :: 3 :: Only",
     "Topic :: Internet",
     "Topic :: Multimedia :: Graphics",
@@ -39,24 +40,23 @@ classifiers = [
 
 [tool.poetry.dependencies]
 python = ">=3.8,<3.13"
+browser-cookie3 = "^0.19.1"
 requests = ">=2.4"
 rich = "^13.7.0"
 
 [tool.poetry.group.dev.dependencies]
 pylint = "*"
 mypy = "*"
-sphinx = "~=2.3"
+sphinx = "*"
 pyinstaller = "*"
-pefile = "*"
-pywin32-ctypes = "*"
 psutil = "*"
-typing-extensions = "*"
 types-requests = "*"
-#typed-ast = "*"  # Does not support PEP 517 yet
-jinja2 = "~=3.0.1"
-wrapt = "*"  # Needed for Python<3.11
-tomli = "*"  # Needed for Python<3.11
-dill = "*"  # Needed for Python<3.11
+sphinx-autodoc-typehints = "*"
+sphinxcontrib-jquery = "*"
+tomli = "*"           # Needed for Pylint for "python_version < '3.11'"
+dill = "*"            # Needed for Pylint for "python_version < '3.11'"
+pywin32-ctypes = "*"  # Needed for pyinstaller on Windows
+pefile = "*"          # Needed for pyinstaller on Windows
 
 [tool.poetry.scripts]
 instaloader = "instaloader.__main__:main"
