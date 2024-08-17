@@ -12,13 +12,14 @@ jobs:
       - name: Setup Python
         uses: actions/setup-python@v5
         with:
-          python-version: "3.9"
+          python-version: "3.12"
+          cache: 'pipenv'
           architecture: x64
       - name: Get the tagged version
         id: get_version
         env:
           GITHUB_REF: ${{ github.ref }}
-        run: echo ::set-output name=VERSION::${GITHUB_REF/refs\/tags\/v/}
+        run: echo "VERSION=${GITHUB_REF/refs\/tags\/v/}" >> $GITHUB_OUTPUT
         shell: bash
       - name: Run custom python script for EXE creation
         env:
