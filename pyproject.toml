@@ -39,7 +39,7 @@ classifiers = [
 ]
 
 [tool.poetry.dependencies]
-python = ">=3.8,<3.13"
+python = "^3.9"
 browser-cookie3 = "^0.19.1"
 requests = ">=2.4"
 rich = "^13.7.0"
