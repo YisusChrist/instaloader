@@ -39,7 +39,7 @@ classifiers = [
 ]
 
 [tool.poetry.dependencies]
-python = "^3.9"
+python = ">=3.9,<3.14"
 browser-cookie3 = "^0.19.1"
 requests = ">=2.4"
 rich = "^13.7.0"
@@ -48,7 +48,7 @@ rich = "^13.7.0"
 pylint = "*"
 mypy = "*"
 sphinx = "*"
-pyinstaller = "*"
+pyinstaller = ">=5.13.1"
 psutil = "*"
 types-requests = "*"
 sphinx-autodoc-typehints = "*"
