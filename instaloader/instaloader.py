@@ -84,7 +84,7 @@ def _requires_login(func: Callable) -> Callable:
 
 
 def _retry_on_connection_error(func: Callable) -> Callable:
-    """Decorator to retry the function max_connection_attemps number of times.
+    """Decorator to retry the function max_connection_attempts number of times.
 
     Herewith-decorated functions need an ``_attempt`` keyword argument.
 
@@ -1216,6 +1216,7 @@ class Instaloader:
            Use :meth:`Hashtag.get_posts_resumable`."""
         return Hashtag.from_name(self.context, hashtag).get_posts_resumable()
 
+    @_requires_login
     def download_hashtag(self, hashtag: Union[Hashtag, str],
                          max_count: Optional[int] = None,
                          post_filter: Optional[Callable[[Post], bool]] = None,
@@ -1303,6 +1304,7 @@ class Instaloader:
             post_filter,
             owner_profile=profile,
             takewhile=posts_takewhile,
+            possibly_pinned=3,
         )
         if latest_stamps is not None and reels.first_item is not None:
             latest_stamps.set_last_reels_timestamp(profile.username, reels.first_item.date_local)
